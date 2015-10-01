@@ -15,64 +15,72 @@ Submit your code to a github repo and send us the link.  You can host the runnin
 
 var twitchData = function(jsonp) {
   console.log('twitchData function entered');
-
   var streams = jsonp.streams;
   var total = jsonp._total;
 
 
   console.log('streams are', streams);
-  debugger;
   console.log('first stream is', streams[0]);
+
+  for (var i = 0; i < streams.length; i++) {
+    streamView(streams[i]);
+  }
   console.log(jsonp);
 }
 
 var streamView = function(streamObj) {
-  var gameName = streamObj.game;
-  var description = streamObj.channel.status;
-  var viewers = streamObj.viewers;
+  // so that image can be resized with window
+  var size = size || 'medium';
+
+
+  var gameName = document.createElement('div');
+  gameName.classList.add('gameName');
+  gameName.innerHTML = streamObj.game;
+  console.log('gameName is ' + gameName);
+
+  var description = document.createElement('div');
+  description.classList.add('description');
+  description.innerHTML = streamObj.channel.status;
+
+  var viewers = document.createElement('div');
+  viewers.classList.add('viewers');
+  if (streamObj.viewers === 1) {
+  viewers.innerHTML = streamObj.viewers + ' viewer';
+  } else {
+    viewers.innerHTML = streamObj.viewers + ' viewers';
+  }
+
   var img = {
     small: streamObj.preview.small,
     medium: streamObj.preview.medium,
     large: streamObj.preview.large
   };
-  
 
+  var image = document.createElement('img');
+  image.classList.add('preview');
+  image.src = img[size];
+  console.log('image is', image);
+
+  var stream = document.createElement('div');
+  stream.classList.add('stream');
+  stream.appendChild(image);
+  stream.appendChild(gameName);
+  stream.appendChild(viewers);
+  stream.appendChild(description);
+  console.log('stream is', stream);
+
+  //append stream view to 'results' 
+
+  var results = document.getElementById('results');
+  results.appendChild(stream);
 }
 
 
 var api = document.createElement('script');
-api.src = 'https://api.twitch.tv/kraken/search/streams?q=starcraft&callback=twitchData';
+api.src = 'https://api.twitch.tv/kraken/search/streams?q=csgo&callback=twitchData';
 
 document.body.appendChild(api);
 
 
 
-// $.ajax({
-//   url: 'https://api.twitch.tv/kraken/search/streams?q=starcraft',
-//   jsonp: 'callback',
-//   dataType: 'jsonp',
-//   success: function(data) {
-//     console.log('search recieved', data);
-//   },
-//   error: function(data) {
-//     console.error('we have an error retrieving data!');
-//   }
-// })
 
-// app.fetch = function(search, callback) {
-//   $.ajax({
-//   url: 'https://api.twitch.tv/kraken/search/streams?q=' + search,
-//   jsonp: 'callback',
-//   dataType: 'jsonp',
-//   success: function(data) {
-//     console.log('search recieved', data);
-//   },
-//   error: function(data) {
-//     console.error('we have an error retrieving data!');
-//   }
-// })
-// }
-
-// app.fetch('starcraft', function() {
-//   console.log('hello');
-// });
