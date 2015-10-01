@@ -1,4 +1,4 @@
-var app = {};
+// var app = {};
 
 /*
 Rules:
@@ -13,9 +13,37 @@ Rules:
 Submit your code to a github repo and send us the link.  You can host the running app on github.io.
 */
 
-var request = function(search, callback) {
-  
+var twitchData = function(jsonp) {
+  console.log('twitchData function entered');
+
+  var streams = jsonp.streams;
+  var total = jsonp._total;
+
+
+  console.log('streams are', streams);
+  debugger;
+  console.log('first stream is', streams[0]);
+  console.log(jsonp);
 }
+
+var streamView = function(streamObj) {
+  var gameName = streamObj.game;
+  var description = streamObj.channel.status;
+  var viewers = streamObj.viewers;
+  var img = {
+    small: streamObj.preview.small,
+    medium: streamObj.preview.medium,
+    large: streamObj.preview.large
+  };
+  
+
+}
+
+
+var api = document.createElement('script');
+api.src = 'https://api.twitch.tv/kraken/search/streams?q=starcraft&callback=twitchData';
+
+document.body.appendChild(api);
 
 
 
