@@ -49,7 +49,6 @@ var streamView = function(streamObj) {
   var streamDisplay = document.createElement('div');
   streamDisplay.classList.add('streamDisplay');
   streamDisplay.innerHTML =  streamObj.channel.display_name;
-  // console.log('stream display name is ' + streamDisplay);
 
 
   var gameName = document.createElement('div');
@@ -60,7 +59,6 @@ var streamView = function(streamObj) {
   } else {
     gameName.innerHTML += streamObj.viewers + ' viewers';
   }
-  // console.log('gameName is ' + gameName);
 
   var description = document.createElement('div');
   description.classList.add('description');
@@ -75,7 +73,6 @@ var streamView = function(streamObj) {
   var image = document.createElement('img');
   image.classList.add('preview');
   image.src = img[size];
-  // console.log('image is', image);
 
   var info = document.createElement('div');
   info.classList.add('info');
@@ -87,16 +84,11 @@ var streamView = function(streamObj) {
   stream.appendChild(image);
   stream.appendChild(info);
 
-  // console.log('stream is', stream);
-
   //append stream view to 'results' 
 
   var results = document.getElementById('results');
   results.appendChild(stream);
 }
-
-// var api = document.createElement('script');
-// api.src = 'https://api.twitch.tv/kraken/search/streams?q=csgo&callback=twitchData';
 
 var searchQuery = function(search) {
   //clear results view for new search
@@ -117,7 +109,7 @@ document.getElementById("searchBox").addEventListener("submit", function(e){
   searchQuery(search)
 });
 
-// document.body.appendChild(api);
+
 
 
 
