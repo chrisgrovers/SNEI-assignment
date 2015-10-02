@@ -95,26 +95,29 @@ var streamView = function(streamObj) {
   results.appendChild(stream);
 }
 
-var api = document.createElement('script');
-api.src = 'https://api.twitch.tv/kraken/search/streams?q=csgo&callback=twitchData';
+// var api = document.createElement('script');
+// api.src = 'https://api.twitch.tv/kraken/search/streams?q=csgo&callback=twitchData';
 
-// document.getElementById("seachBox").onsubmit = function onSubmit(form) {
-//         console.log('hyfr');
-//         // var isValid = true;
-//         // //validate your elems here
-//         // isValid = false;
+var searchQuery = function(search) {
+  //clear results view for new search
+  document.getElementById('results').innerHTML = '';
 
-//         // if (!isValid) {
-//         //     alert("Please check your fields!");
-//         //     return false;
-//         // }
-//         // else {
-//         //     //you are good to go
-//         //     return true;
-//         // }
-// }
+  search = search.split(' ').join('+');
+  console.log('search is', search);
+  var api = document.createElement('script');
 
-document.body.appendChild(api);
+  api.src = 'https://api.twitch.tv/kraken/search/streams?q=' + search + '&callback=twitchData';  
+
+  document.body.appendChild(api);
+}
+
+document.getElementById("searchBox").addEventListener("submit", function(e){
+  e.preventDefault();
+  var search = document.getElementById('searchQuery').value;
+  searchQuery(search)
+});
+
+// document.body.appendChild(api);
 
 
 
