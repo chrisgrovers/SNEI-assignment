@@ -12,18 +12,33 @@ body {
   position: relative;
   right: 0;
   left: 0;
-  /*margin-right: auto;
-  margin-left: auto;*/
   margin: 30px auto 20px auto;
 
 }
 
-.stream {
-  border: 5px solid green;
+.preview {
+  float:left;
+  margin: 5px;
 }
 
-.img {
-  float: left;
+.preview img {
+  display: block;
+}
+
+.info {
+  border: 5px solid red;
+
+}
+
+.streamDisplay {
+  font-weight: bold;
+  font-size: 200%;
+}
+
+.stream {
+  margin: 20px;  
+  border:5px solid #333;
+  overflow: auto;
 }
 
 #searchBox {
