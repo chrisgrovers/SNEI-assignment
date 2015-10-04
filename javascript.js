@@ -13,26 +13,83 @@ Rules:
 Submit your code to a github repo and send us the link.  You can host the running app on github.io.
 */
 
-var twitchData = function(jsonp) {
+  // TODO: add clickable arrows
+  // TODO: fix results number
+  // TODO: play with jsonp._links.self and jsonp._links.next for scroll view
 
-  console.log('twitchData function entered');
+var calculatePages = function(curr, total) {
+  currPage = (curr / 10) + 1;
+
+  var pages = jsonp._total / 10;
+  if (jsonp._total % 10 !== 0) {
+    pages++;
+  }
+
+  return currPage + '/' + pages;
+} 
+
+var scrollPage = function(direction) {
+  console.log(direction);
+}
+
+var twitchData = function(jsonp) {
+  // TODO: Fix borders with correct color.
+  //TODO: add error handling
+    // handle zero results
+
+  //clear results view for new search
+  var results = document.getElementById('results');
+  results.innerHTML = '';
+
+  debugger;
+  var totalResults = jsonp._total
+
+  // var offset = jsonp._links
+
+  // console.log('twitchData function entered');
   var streams = jsonp.streams;
   var total = document.createElement('div');
   total.classList.add('total');
-  total.innerHTML = 'Total results: ' + jsonp._total;
-  console.log('total is', total);
+  total.innerHTML = 'Total results: ' + totalResults;
+  // console.log('total is', total);
+
+  var leftArrow = document.createElement('div');
+  leftArrow.id = 'leftArrow';
+
+  var rightArrow = document.createElement('div');
+  rightArrow.id = 'rightArrow';
 
 
-  var results = document.getElementById('results');
-  results.appendChild(total);
+  leftArrow.addEventListener('click', function() {
+    console.log('hello!');
+    scrollPage(leftArrow);
+  });
 
-  console.log('streams are', streams);
-  console.log('first stream is', streams[0]);
+  rightArrow.addEventListener('click', function() {
+    console.log('hello!');
+  });
+
+  var page = document.createElement('div');
+  page.classList.add('page');
+  // page.innerHTML = calculatePages(, totalResults)
+
+  var scroll = document.createElement('div');
+  scroll.classList.add('scroll');
+  scroll.appendChild(rightArrow);
+  // scroll.appendChild(page)
+  scroll.appendChild(leftArrow);
+
+
+  // console.log('streams are', streams);
+  // console.log('first stream is', streams[0]);
 
   // append number of results & scroll view
   var searchInfo = document.createElement('div');
   searchInfo.classList.add('searchInfo');
   searchInfo.appendChild(total);
+  searchInfo.appendChild(scroll);
+
+  results.appendChild(searchInfo);
 
   for (var i = 0; i < streams.length; i++) {
     streamView(streams[i]);
@@ -42,6 +99,7 @@ var twitchData = function(jsonp) {
 
 
 var streamView = function(streamObj) {
+  // TODO: fix description to be indented
 
   // so that image can be resized with window
   var size = size || 'medium';
@@ -91,14 +149,12 @@ var streamView = function(streamObj) {
 }
 
 var searchQuery = function(search) {
-  //clear results view for new search
-  document.getElementById('results').innerHTML = '';
 
   search = search.split(' ').join('+');
   console.log('search is', search);
   var api = document.createElement('script');
 
-  api.src = 'https://api.twitch.tv/kraken/search/streams?q=' + search + '&callback=twitchData';  
+  api.src = 'https://api.twitch.tv/kraken/search/streams?q=' + search + '&callback=twitchData'; 
 
   document.body.appendChild(api);
 }
@@ -109,6 +165,9 @@ document.getElementById("searchBox").addEventListener("submit", function(e){
   searchQuery(search)
 });
 
+document.getElementById("searchQuery").addEventListener('click', function() {
+  this.value = '';
+});
 
 
 
