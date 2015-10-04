@@ -13,19 +13,6 @@ Rules:
 Submit your code to a github repo and send us the link.  You can host the running app on github.io.
 */
 
-var calculatePages = function(self, total) {
-
-  var curr = self.slice(self.indexOf('offset=') + 7, self.indexOf('&q'));
-  var currPage = (curr / 10) + 1;
-  var pages = Math.round(total / 10);
-
-  return currPage + '/' + pages;
-} 
-
-var scrollPage = function(direction) {
-  console.log(direction);
-}
-
 var twitchData = function(jsonp) {
   // TODO: Fix borders with correct color.
   //TODO: add error handling
@@ -34,6 +21,7 @@ var twitchData = function(jsonp) {
   //clear results view for new search
   var results = document.getElementById('results');
   results.innerHTML = '';
+  // debugger;
 
   var totalResults = jsonp._total
 
@@ -48,32 +36,35 @@ var twitchData = function(jsonp) {
   var rightArrow = document.createElement('div');
   rightArrow.id = 'rightArrow';
 
+  var page = document.createElement('div');
+  page.classList.add('page');
+  var self = jsonp._links.self;
+  var curr = self.slice(self.indexOf('offset=') + 7, self.indexOf('&q'));
+  var currPage = (curr / 10) + 1;
+  var pages = Math.round(totalResults / 10);
+
+  page.innerHTML = currPage + '/' + pages
 
   leftArrow.addEventListener('click', function() {
-    console.log('leftArrow clicked');
+    // console.log('leftArrow clicked');
     var prev = jsonp._links.prev ? jsonp._links.prev + '&callback=twitchData' : null;
     if (prev) {
       searchQuery(prev);
     } else {
       console.log('har har, nice try!')
     }
-    scrollPage(leftArrow);
   });
 
   rightArrow.addEventListener('click', function() {
-    console.log('rightArrow clicked');
-    var next = jsonp._links.next ? jsonp._links.next + '&callback=twitchData' : null;
-    if (next) {
+    // console.log('rightArrow clicked');
+    var next = jsonp._links.next + '&callback=twitchData';
+    debugger;
+    if (currPage < pages) {
       searchQuery(next);
     } else {
       console.log('har har, nice try!')
     }
-    scrollPage(rightArrow);
   });
-
-  var page = document.createElement('div');
-  page.classList.add('page');
-  page.innerHTML = calculatePages(jsonp._links.self, totalResults)
 
   var scroll = document.createElement('div');
   scroll.classList.add('scroll');
@@ -158,7 +149,7 @@ document.getElementById("searchBox").addEventListener("submit", function(e){
   e.preventDefault();
   var search = escape(document.getElementById('searchQuery').value);
 
-  console.log('search is', search);
+  // console.log('search is', search);
   var source = 'https://api.twitch.tv/kraken/search/streams?q=' + search + '&callback=twitchData';
 
   searchQuery(source)
