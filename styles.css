@@ -34,7 +34,7 @@ body {
 }
 
 .info {
-  border: 5px solid red;
+  /*border: 5px solid red;*/
 }
 
 .streamDisplay {
@@ -44,13 +44,20 @@ body {
 
 .stream {
   margin: 20px;  
-  border:5px solid #333;
+  /*border:5px solid #333;*/
   overflow: auto;
 }
 
 .searchInfo {
   margin: 5px 10px  5px 10px;
-  border: 5px solid #666;
+  clear: both;
+  overflow: auto;
+  /*position: relative;*/
+  /*border: 5px solid #666;*/
+}
+
+.page {
+  float: right;
 }
 
 #rightArrow {
@@ -74,11 +81,11 @@ body {
 }
 
 #searchBox {
-  border: 5px solid red;
+  border-bottom: 5px solid black;
   padding: 50px 30px 20px 40px;
 }
 
 #results {
-  border: 5px solid blue;
+  /*border: 5px solid blue;*/
 }
 
