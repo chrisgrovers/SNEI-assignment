@@ -7,7 +7,7 @@ body {
 }
 
 .searchWindow {
-  border: 5px solid black;
+  border: 2px solid black;
   width: 65%;
   position: relative;
   right: 0;
@@ -52,7 +52,6 @@ body {
   margin: 5px 10px  5px 10px;
   clear: both;
   overflow: auto;
-  /*position: relative;*/
   /*border: 5px solid #666;*/
 }
 
@@ -81,7 +80,7 @@ body {
 }
 
 #searchBox {
-  border-bottom: 5px solid black;
+  border-bottom: 2px solid black;
   padding: 50px 30px 20px 40px;
 }
 
