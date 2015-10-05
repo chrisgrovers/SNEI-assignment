@@ -47,6 +47,7 @@ var twitchData = function(jsonp) {
   rightArrow.id = 'rightArrow';
 
   var pageHTML = currPage + '/' + pages
+  
   // information on what page of streams you are currently viewing
   var page = divMaker('page', pageHTML);
 
@@ -72,15 +73,14 @@ var twitchData = function(jsonp) {
   // creates div with information on what page you are on, along with clickable arrows
   var scroll = divMaker('scroll', '', [rightArrow, page, leftArrow]);
 
-  // append number of results & scroll view
+  // append number of results & scroll divs
   var searchInfo = divMaker('searchInfo', '', [total, scroll]);
-
   results.appendChild(searchInfo);
 
   for (var i = 0; i < streams.length; i++) {
     streamView(streams[i]);
   }
-  console.log(jsonp);
+
 }
 
 var streamView = function(streamObj) {
