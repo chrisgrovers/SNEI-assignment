@@ -97,3 +97,14 @@ body {
   /*border: 5px solid blue;*/
 }
 
+#submit {
+  width: 90px;
+  height: 30px;
+  font-size: xx-large;
+}
+
+#searchQuery {
+  font-size: 16px;
+  width: 157px;
+  height: 20px;
+}
