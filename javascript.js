@@ -22,9 +22,9 @@ var twitchData = function(jsonp) {
   var totalResults = jsonp._total
 
   var streams = jsonp.streams;
-  var total = document.createElement('div');
-  total.classList.add('total');
-  total.innerHTML = 'Total results: ' + totalResults;
+
+  var totalHTML = 'Total results: ' + totalResults;
+  var total = divMaker('total', totalHTML);
 
   var leftArrow = document.createElement('div');
   leftArrow.id = 'leftArrow';
@@ -32,14 +32,13 @@ var twitchData = function(jsonp) {
   var rightArrow = document.createElement('div');
   rightArrow.id = 'rightArrow';
 
-  var page = document.createElement('div');
-  page.classList.add('page');
   var self = jsonp._links.self;
   var curr = self.slice(self.indexOf('offset=') + 7, self.indexOf('&q'));
   var currPage = (curr / 10) + 1;
   var pages = Math.round(totalResults / 10);
 
-  page.innerHTML = currPage + '/' + pages
+  var pageHTML = currPage + '/' + pages
+  var page = divMaker('page', pageHTML);
 
   leftArrow.addEventListener('click', function() {
     var prev = jsonp._links.prev ? jsonp._links.prev + '&callback=twitchData' : null;
@@ -60,17 +59,10 @@ var twitchData = function(jsonp) {
     }
   });
 
-  var scroll = document.createElement('div');
-  scroll.classList.add('scroll');
-  scroll.appendChild(rightArrow);
-  scroll.appendChild(page)
-  scroll.appendChild(leftArrow);
+  var scroll = divMaker('scroll', '', [rightArrow, page, leftArrow]);
 
   // append number of results & scroll view
-  var searchInfo = document.createElement('div');
-  searchInfo.classList.add('searchInfo');
-  searchInfo.appendChild(total);
-  searchInfo.appendChild(scroll);
+  var searchInfo = divMaker('searchInfo', '', [total, scroll]);
 
   results.appendChild(searchInfo);
 
@@ -80,30 +72,36 @@ var twitchData = function(jsonp) {
   console.log(jsonp);
 }
 
-
+var divMaker = function(className, html, children) {
+  var newDiv = document.createElement('div');
+  newDiv.classList.add(className);
+  newDiv.innerHTML = html;
+  if (children) {
+    for (var i = 0; i < children.length; i++) {
+      newDiv.appendChild(children[i]);
+    }
+  }
+  return newDiv;
+}
 
 var streamView = function(streamObj) {
 
   // so that image can be resized with window
   var size = size || 'medium';
 
-  var streamDisplay = document.createElement('div');
-  streamDisplay.classList.add('streamDisplay');
-  streamDisplay.innerHTML =  streamObj.channel.display_name;
+  var streamDisplay = divMaker('streamDisplay', streamObj.channel.display_name);
 
 
-  var gameName = document.createElement('div');
-  gameName.classList.add('gameName');
-  gameName.innerHTML = streamObj.game + ' - ';
   if (streamObj.viewers === 1) {
-    gameName.innerHTML += streamObj.viewers + ' viewer';
+    var viewers = ' viewer';
   } else {
-    gameName.innerHTML += streamObj.viewers + ' viewers';
+    viewers = ' viewers';
   }
 
-  var description = document.createElement('div');
-  description.classList.add('description');
-  description.innerHTML = streamObj.channel.status;
+  var gameName = divMaker('gameName', viewers);
+
+  var description = divMaker('description', streamObj.channel.status);
+
 
   var img = {
     small: streamObj.preview.small,
@@ -115,15 +113,9 @@ var streamView = function(streamObj) {
   image.classList.add('preview');
   image.src = img[size];
 
-  var info = document.createElement('div');
-  info.classList.add('info');
-  info.appendChild(streamDisplay);
-  info.appendChild(gameName);
-  info.appendChild(description);
-  var stream = document.createElement('div');
-  stream.classList.add('stream');
-  stream.appendChild(image);
-  stream.appendChild(info);
+  var info = divMaker('info', '', [streamDisplay, gameName, description]);
+
+  var stream = divMaker('stream', '', [image, info]);
 
   //append stream view to 'results' 
   var results = document.getElementById('results');
