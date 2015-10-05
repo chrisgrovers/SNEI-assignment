@@ -103,7 +103,7 @@ var streamView = function(streamObj) {
 
   // child divs for info div
   var streamDisplay = divMaker('streamDisplay', streamObj.channel.display_name);
-  var gameName = divMaker('gameName', viewers);
+  var gameName = divMaker('gameName', streamObj.viewers + viewers);
   var description = divMaker('description', streamObj.channel.status);
 
   // creates div for the preview image
