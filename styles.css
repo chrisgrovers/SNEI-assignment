@@ -17,11 +17,11 @@ body {
 }
 
 .gameName {
-  margin-left: 340px;
+  margin-left: 10px;
 }
 
 .description {
-  margin-left: 340px;
+  margin-left: 10px;
 }
 
 .total {
@@ -43,6 +43,7 @@ body {
 
 .info {
   /*border: 5px solid red;*/
+  margin-left: 350px;
 }
 
 .streamDisplay {
