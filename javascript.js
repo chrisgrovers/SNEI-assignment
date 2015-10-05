@@ -27,7 +27,6 @@ var divMaker = function(className, html, children) {
 
 // callback function to correctly display jsonp information in results div
 var twitchData = function(jsonp) {
-
   //clear results view for new search
   var results = document.getElementById('results');
   results.innerHTML = '';
@@ -47,7 +46,7 @@ var twitchData = function(jsonp) {
   rightArrow.id = 'rightArrow';
 
   var pageHTML = currPage + '/' + pages
-  
+
   // information on what page of streams you are currently viewing
   var page = divMaker('page', pageHTML);
 
@@ -123,7 +122,6 @@ var streamView = function(streamObj) {
 
 // takes in a source which will be the link to the api we will be using
 var searchQuery = function(source) {
-
   var api = document.createElement('script');
 
   api.src = source;
