@@ -1,4 +1,3 @@
-// var app = {};
 
 /*
 Rules:
@@ -14,14 +13,11 @@ Submit your code to a github repo and send us the link.  You can host the runnin
 */
 
 var twitchData = function(jsonp) {
-  // TODO: Fix borders with correct color.
-  //TODO: add error handling
-    // handle zero results
 
   //clear results view for new search
   var results = document.getElementById('results');
   results.innerHTML = '';
-  // debugger;
+
 
   var totalResults = jsonp._total
 
@@ -46,7 +42,6 @@ var twitchData = function(jsonp) {
   page.innerHTML = currPage + '/' + pages
 
   leftArrow.addEventListener('click', function() {
-    // console.log('leftArrow clicked');
     var prev = jsonp._links.prev ? jsonp._links.prev + '&callback=twitchData' : null;
     if (prev) {
       searchQuery(prev);
@@ -56,7 +51,6 @@ var twitchData = function(jsonp) {
   });
 
   rightArrow.addEventListener('click', function() {
-    // console.log('rightArrow clicked');
     var next = jsonp._links.next + '&callback=twitchData';
     debugger;
     if (currPage < pages) {
@@ -89,7 +83,6 @@ var twitchData = function(jsonp) {
 
 
 var streamView = function(streamObj) {
-  // TODO: fix description to be indented
 
   // so that image can be resized with window
   var size = size || 'medium';
@@ -150,7 +143,6 @@ document.getElementById("searchBox").addEventListener("submit", function(e){
   e.preventDefault();
   var search = escape(document.getElementById('searchQuery').value);
 
-  // console.log('search is', search);
   var source = 'https://api.twitch.tv/kraken/search/streams?q=' + search + '&callback=twitchData';
 
   searchQuery(source)
