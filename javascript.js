@@ -100,9 +100,11 @@ var streamView = function(streamObj) {
 
   // so that image can be resized with window
 
+  var gameNameHTML = streamObj.game + ' - ' + streamObj.viewers + viewers
+
   // child divs for info div
   var streamDisplay = divMaker('streamDisplay', streamObj.channel.display_name);
-  var gameName = divMaker('gameName', streamObj.viewers + viewers);
+  var gameName = divMaker('gameName', gameNameHTML);
   var description = divMaker('description', streamObj.channel.status);
 
   // creates div for the preview image
