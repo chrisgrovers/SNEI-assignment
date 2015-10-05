@@ -16,6 +16,14 @@ body {
 
 }
 
+.gameName {
+  margin-left: 340px;
+}
+
+.description {
+  margin-left: 340px;
+}
+
 .total {
   float: left;
 }
