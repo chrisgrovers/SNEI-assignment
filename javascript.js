@@ -87,6 +87,7 @@ var twitchData = function(jsonp) {
 }
 
 
+
 var streamView = function(streamObj) {
   // TODO: fix description to be indented
 
