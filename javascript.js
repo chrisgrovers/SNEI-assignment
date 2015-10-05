@@ -34,9 +34,8 @@ var twitchData = function(jsonp) {
   var self = jsonp._links.self;
   var curr = self.slice(self.indexOf('offset=') + 7, self.indexOf('&q'));
   var currPage = (curr / 10) + 1;
-  var pages = Math.round(totalResults / 10);
-
   var totalResults = jsonp._total
+  var pages = Math.round(totalResults / 10);
   var streams = jsonp.streams;
   var totalHTML = 'Total results: ' + totalResults;
   var total = divMaker('total', totalHTML);
